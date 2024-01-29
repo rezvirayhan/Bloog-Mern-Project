@@ -17,3 +17,7 @@ app.listen(3000, () => {
     console.log('Server Is Running On port 3000');
 })
 
+app.get('/test', (req, res) => {
+    res.json({ massage: "Api Running On Port" })
+})
+
