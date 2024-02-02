@@ -6,11 +6,14 @@ import { persistor, store } from './redux/store.js'
 
 
 import { PersistGate } from 'redux-persist/integration/react'
+import ThemProvider from './components/ThemProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <PersistGate persistor={persistor} >
     <Provider store={store}>
-      <App />
+      <ThemProvider>
+        <App />
+      </ThemProvider>
     </Provider>,
   </PersistGate>
 )
