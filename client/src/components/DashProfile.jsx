@@ -11,6 +11,7 @@ import {
     deletedUserFailure,
     deletedUserStart,
     deletedUserSuccess,
+    signOutSuccess,
     updateFailure,
     updateStart,
     updateSuccess
@@ -138,6 +139,23 @@ const DashProfile = () => {
         }
     };
 
+    const handleSignOut = async () => {
+        try {
+            const res = await fetch('/api/user/signOut', {
+                method: "POST"
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                console.log(data.message);
+            }
+            else {
+                dispatch(signOutSuccess())
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     return (
         <div className='max-w-lg mx-auto p-3 w-full'>
             <h2 className='my-7 text-center font-semibold text-3xl'>Profile</h2>
@@ -208,7 +226,7 @@ const DashProfile = () => {
                     </span>
                 </Button>
                 <Button color="blue"  >
-                    <span className='cursor-pointer'>
+                    <span onClick={handleSignOut} className='cursor-pointer'>
                         Sign Out
                     </span>
                 </Button>
