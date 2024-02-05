@@ -1,13 +1,22 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { Alert, Button, TextInput } from 'flowbite-react';
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+
+import { Alert, Button, Modal, TextInput } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { app } from "../firebase";
-import { updateFailure, updateStart, updateSuccess } from "../redux/user/userSlice";
+import {
+    deletedUserFailure,
+    deletedUserStart,
+    deletedUserSuccess,
+    updateFailure,
+    updateStart,
+    updateSuccess
+} from "../redux/user/userSlice";
 const DashProfile = () => {
-    const { currentUser } = useSelector(state => state.user)
+    const { currentUser, error } = useSelector(state => state.user)
 
     const [imageFile, setImageFile] = useState(null)
     const [imageFileUrl, setImageFileUrl] = useState(null)
@@ -17,6 +26,7 @@ const DashProfile = () => {
     const [imageFileUploading, setImageFileUploading] = useState(false);
     const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
     const [updateUserError, setUpdateUserError] = useState(null);
+    const [showModal, setShowModal] = useState(false)
 
     const filePikerRef = useRef()
     const dispatch = useDispatch()
@@ -109,6 +119,42 @@ const DashProfile = () => {
         }
 
     }
+
+    const handleDeletedUser = async () => {
+        setShowModal(false);
+        try {
+            dispatch(deletedUserStart());
+            const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+                method: 'DELETE',
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                dispatch(deletedUserFailure(data.message));
+            } else {
+                dispatch(deletedUserSuccess(data));
+            }
+        } catch (error) {
+            dispatch(deletedUserFailure(error.message));
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className='max-w-lg mx-auto p-3 w-full'>
             <h2 className='my-7 text-center font-semibold text-3xl'>Profile</h2>
@@ -172,7 +218,7 @@ const DashProfile = () => {
                 </Button>
             </form >
             <div className='text-red-500 flex justify-between mt-5'>
-                <span className='cursor-pointer'>
+                <span onClick={() => setShowModal(true)} className='cursor-pointer'>
                     Delete Account
                 </span>
                 <span className='cursor-pointer'>
@@ -196,7 +242,31 @@ const DashProfile = () => {
                     </Alert>
                 )
             }
+            {
+                error && (
 
+                    <Alert color="failure" className="mt-5">
+                        {error}
+                    </Alert>
+                )
+            }
+            <Modal show={showModal} onClose={() => setShowModal(false)} popup size='md'>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="w-14 h-14 text-gray-500 dark:text-gray-500 mb-4 mx-auto" />
+                        <h3 className="mb-5  text-gray-800 dark:text-gray-100 text-lg font-semibold">Are You Sure You Want To Deleted Your Account</h3>
+                        <div className="flex justify-center gap-8">
+                            <Button color="failure" onClick={handleDeletedUser} >
+                                Yes I'm Sure
+                            </Button>
+                            <Button color="purple" onClick={() => setShowModal(false)}>
+                                No, Cancle
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div >
     );
 };
