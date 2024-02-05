@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema(
         profilePicture: {
             type: String,
             default: "https://static.vecteezy.com/system/resources/previews/003/429/299/non_2x/male-silhouette-neon-light-icon-gentlemen-wc-door-glowing-sign-vector.jpg"
-        }
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false
+        },
     },
     { timestamps: true }
 );
