@@ -16,9 +16,9 @@ mongoose.connect(process.env.MONGO)
     });
 
 const app = express();
-app.use(cors())
-app.use(express.json())
-app.use(cookieParser())
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 
 app.listen(3000, () => {
     console.log('Server Is Running On port 3000');
