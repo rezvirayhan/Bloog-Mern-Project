@@ -138,23 +138,6 @@ const DashProfile = () => {
         }
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <div className='max-w-lg mx-auto p-3 w-full'>
             <h2 className='my-7 text-center font-semibold text-3xl'>Profile</h2>
@@ -218,12 +201,17 @@ const DashProfile = () => {
                 </Button>
             </form >
             <div className='text-red-500 flex justify-between mt-5'>
-                <span onClick={() => setShowModal(true)} className='cursor-pointer'>
-                    Delete Account
-                </span>
-                <span className='cursor-pointer'>
-                    Sign Out
-                </span>
+
+                <Button color="failure"  >
+                    <span onClick={() => setShowModal(true)} className='cursor-pointer'>
+                        Delete Account
+                    </span>
+                </Button>
+                <Button color="blue"  >
+                    <span className='cursor-pointer'>
+                        Sign Out
+                    </span>
+                </Button>
             </div>
             {
                 updateUserSuccess && (
