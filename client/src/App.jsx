@@ -25,6 +25,7 @@ function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+
         </Route>
         <Route path="/projects" element={<Project />} />
       </Routes>
