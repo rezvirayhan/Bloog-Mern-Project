@@ -3,6 +3,7 @@ import About from "./Pages/About"
 import CreatePost from "./Pages/CreatePost"
 import Dashboard from "./Pages/Dashboard"
 import Home from "./Pages/Home"
+import PostPages from "./Pages/PostPages"
 import Project from "./Pages/Project"
 import SignIn from "./Pages/SignIn"
 import SignUp from "./Pages/SignUp"
@@ -30,6 +31,7 @@ function App() {
 
         </Route>
         <Route path="/projects" element={<Project />} />
+        <Route path="/post/:postSlug" element={<PostPages />} />
       </Routes>
       <Footer />
     </BrowserRouter>
