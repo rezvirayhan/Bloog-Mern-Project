@@ -12,10 +12,12 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import PrivateRoute from "./components/PrivateRoute"
+import ScrollToTop from "./components/ScrollToTop"
 function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
