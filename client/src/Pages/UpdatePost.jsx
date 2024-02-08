@@ -20,7 +20,6 @@ const UpdatePost = () => {
     const [imageUploadError, setImageUploadError] = useState(null)
     const [publishError, setPublishError] = useState(null);
     const { postId } = useParams()
-    console.log("Post Is User InterFace", postId);
     const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
 
@@ -46,7 +45,6 @@ const UpdatePost = () => {
     }, [postId])
     const [formData, setFormData] = useState({})
 
-    console.log(formData);
     const handleUploadImages = async () => {
         try {
             if (!file) {
@@ -92,7 +90,6 @@ const UpdatePost = () => {
                 },
                 body: JSON.stringify(formData),
             });
-            console.log(res);
             const data = await res.json();
             if (!res.ok) {
                 setPublishError(data.message);
